@@ -5,10 +5,32 @@ const lineColor = document.getElementById('line-color');
 const largeHandColor = document.getElementById('large-hand-color');
 const secondHandColor = document.getElementById('second-hand-color');
 
+if(localStorage.getItem('faceColor')){
+  faceColor.value = localStorage.getItem('faceColor')
+}
+if(localStorage.getItem('borderColor')){
+  borderColor.value = localStorage.getItem('borderColor')
+}
+if(localStorage.getItem('lineColor')){
+  lineColor.value = localStorage.getItem('lineColor')
+}
+if(localStorage.getItem('largeHandColor')){
+  largeHandColor.value = localStorage.getItem('largeHandColor')
+}
+if(localStorage.getItem('secondHandColor')){
+  secondHandColor.value = localStorage.getItem('secondHandColor')
+}
+
 function clock(){
   const now = new Date();
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
+
+  localStorage.setItem('faceColor',faceColor.value);
+  localStorage.setItem('borderColor',borderColor.value);
+  localStorage.setItem('lineColor',lineColor.value);
+  localStorage.setItem('largeHandColor',largeHandColor.value);
+  localStorage.setItem('secondHandColor',secondHandColor.value);
 
   //Setup canvas
   ctx.save(); //save the default state
@@ -26,8 +48,8 @@ ctx.lineCap = 'round';
 ctx.save();
 ctx.beginPath();
 ctx.lineWidth = 14;
-ctx.strokeStyle = borderColor.value;
-ctx.fillStyle = faceColor.value;
+ctx.strokeStyle = localStorage.getItem('borderColor');
+ctx.fillStyle = localStorage.getItem('faceColor');
 ctx.arc(0,0, 142, 0, 2*Math.PI, true);
 ctx.stroke();
 ctx.fill();
@@ -35,7 +57,7 @@ ctx.restore();
 
 // Draw hour lines
 ctx.save();
-ctx.strokeStyle = lineColor.value;
+ctx.strokeStyle = localStorage.getItem('lineColor');
 for(let i= 0; i < 12; i++){
   ctx.beginPath();
   ctx.rotate(Math.PI / 6);
@@ -47,7 +69,7 @@ ctx.restore();
 
 // Draw minute lines
 ctx.save();
-ctx.strokeStyle = lineColor.value;
+ctx.strokeStyle = localStorage.getItem('lineColor');
 ctx.lineWidth = 4;
 for(let i= 0; i < 60; i++){
   if(i  % 5 !== 0 ){
@@ -70,7 +92,7 @@ const sec = now.getSeconds();
 // Draw hour hand
 ctx.save();
 ctx.rotate((Math.PI / 6) * hr + (Math.PI / 360) * min + (Math.PI / 21600)*sec);
-ctx.strokeStyle = largeHandColor.value;
+ctx.strokeStyle = localStorage.getItem('largeHandColor');
 ctx.lineWidth = 14;
 ctx.beginPath();
 ctx.moveTo(-20, 0);
@@ -81,7 +103,7 @@ ctx.restore();
 // Draw minute hand
 ctx.save();
 ctx.rotate( (Math.PI / 30) * min + (Math.PI / 1800)*sec);
-ctx.strokeStyle = largeHandColor.value;
+ctx.strokeStyle = localStorage.getItem('largeHandColor');
 ctx.lineWidth = 10;
 ctx.beginPath();
 ctx.moveTo(-28, 0);
@@ -92,8 +114,8 @@ ctx.restore();
 // Draw second hand
 ctx.save();
 ctx.rotate( (Math.PI / 30)*sec);
-ctx.strokeStyle = secondHandColor.value;
-ctx.fillStyle = secondHandColor.value;
+ctx.strokeStyle = localStorage.getItem('secondHandColor');
+ctx.fillStyle = localStorage.getItem('secondHandColor');
 ctx.lineWidth = 6;
 ctx.beginPath();
 ctx.moveTo(-30, 0);
