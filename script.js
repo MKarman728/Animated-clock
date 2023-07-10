@@ -5,6 +5,7 @@ const lineColor = document.getElementById('line-color');
 const largeHandColor = document.getElementById('large-hand-color');
 const secondHandColor = document.getElementById('second-hand-color');
 
+// Check if local storage has preset values. If so, to use those instead of default.
 if(localStorage.getItem('faceColor')){
   faceColor.value = localStorage.getItem('faceColor')
 }
@@ -26,6 +27,7 @@ function clock(){
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
+  //saves color values to local storage
   localStorage.setItem('faceColor',faceColor.value);
   localStorage.setItem('borderColor',borderColor.value);
   localStorage.setItem('lineColor',lineColor.value);
